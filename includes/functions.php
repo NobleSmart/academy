@@ -201,11 +201,66 @@ function getClasses(){
         $title=htmlspecialchars($courses['title'],ENT_QUOTES, 'UTF-8');
         $fullname=htmlspecialchars($courses['fullname'],ENT_QUOTES, 'UTF-8');
         $lnkDetail = '<tr><td><a href="courses.php?id='.$id.'">'.$code.'</a></td>';
-        $btnRegister = '<input type="button" value="Register"/>';
         echo '<td>'.$lnkDetail.'</td><td>'.$title.'</td>';
-        echo '<td>'.$fullname.'</td><td>'.$btnRegister.'</td></tr>';
+        echo '<td>'.$fullname.'</td>';
+        if (isset($_COOKIE["fullname"])){
+            $userId = $_COOKIE["userid"];
+            $btnSignup = '<input type="button" onclick="signup('.$id.','.$userId.')" value="Signup"/>';
+            echo '<td>'.$btnSignup.'</td>';
+        } else {
+            $lnkLogin = '<a href="login.php">Login to Signup<a/>';
+            echo '<td>'.$lnkLogin.'</td>';
+        }
+        echo "</tr>";
     }
     echo "</tbody></table>";
 
 }
+
+function signupForClass($courseId, $userId){
+    global $link;
+    $sql='insert into `registration` (student_id, course_id, reg_date, status)
+        values ($userId, $courseId, DATE(), 0)';
+    $result = mysqli_query($link, $sql);
+    if (!$result) {
+      $error = 'Error fetching data: ' . mysqli_error($link);
+      echo $error;
+      exit();
+    }       
+    return $sql;
+    while($signup=mysqli_fetch_array($result)){
+        
+    }
+
+}
+
+function getUser($email, $password){
+    global $link;
+    $sql = "select * from students where email='$email' and password=MD5('$password')";
+//    echo $sql;
+    $result = mysqli_query($link, $sql);
+    if (!$result) {
+      $error = 'Error fetching data: ' . mysqli_error($link);
+      echo $error;
+      exit();
+    }       
+    $fullname = "";
+    // $user=mysqli_fetch_array($result);
+    // return $sql;
+    while($user=mysqli_fetch_array($result)){
+        $id=htmlspecialchars($user['id'],ENT_QUOTES, 'UTF-8');
+        $fname = htmlspecialchars($user['first_name'],ENT_QUOTES, 'UTF-8');
+        $lname = htmlspecialchars($user['last_name'],ENT_QUOTES, 'UTF-8');
+        $email = htmlspecialchars($user['email'],ENT_QUOTES, 'UTF-8');
+        $fullname = "$fname $lname";
+        $cookie_name = "fullname";
+        $cookie_value = $fullname;        
+        setcookie($cookie_name, $cookie_value, time() + (86400 * 30), "/"); // 86400 = 1 day    
+        $cookie_name = "userid";
+        $cookie_value = $id;        
+        setcookie($cookie_name, $cookie_value, time() + (86400 * 30), "/"); // 86400 = 1 day    
+    }
+    return $fullname;
+}
+
 ?>

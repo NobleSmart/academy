@@ -13,7 +13,7 @@ $cookie_value = "";
 		<meta name="viewport" content="width=device-width; initial-scale=1; user-scalable=true;">
 	</head>
 	<body>
-		<?php include("nav.php"); ?>
+		<?php include("includes/nav.php"); ?>
 		<section id="main-content">
 			<div class="container">
                 <h3>Register at Noble Smart Academy</h3>
@@ -29,19 +29,6 @@ $cookie_value = "";
 			</div>
 			<div id="frmResult"></div>
 		</section>
-		<section id="social">
-			<div class="container">
-				<h3>I'm pretty social too. We should be friends.</h3>
-				<ul>
-					<li><img src="images/facebook.svg" alt="Facebook" /></li>
-					<li><img src="images/twitter.svg" alt="Twitter" /></li>
-					<li><img src="images/instagram.svg" alt="Instagram" /></li>
-					<li><img src="images/linkedin.svg" alt="LinkedIn" /></li>
-				</ul>
-			</div>
-		</section>
-		<footer>
-			<p>&copy; 2015 IMA Zebra</p>
-		</footer>
+		<?php include("includes/footer.php"); ?>
 	</body>
 </html>

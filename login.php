@@ -1,4 +1,5 @@
 <?php 
+include("includes/cookies.php");
 include("includes/dbconfig.php"); 
 include("includes/functions.php"); 
 ?>
@@ -6,36 +7,52 @@ include("includes/functions.php");
 <html>
 	<head>
 		<title>Noble Smart Academy</title>
-		<link rel="stylesheet" href="css/reset.css">
-		<link rel="stylesheet" href="css/global.css">
-		<meta name="viewport" content="width=device-width; initial-scale=1; user-scalable=true;">
+		<?php include("includes/head.php"); ?>
+		<script>
+		function login(){
+			console.log("Registering");
+			var response = "";
+			var emailVal = $("#email").val();
+			var passwordVal = $("#password").val();
+			console.log('[email]', emailVal);
+			console.log('[password]', passwordVal);
+			var param = {
+				email: emailVal,
+				password: passwordVal
+			};
+			console.log('[param]', param);
+			$.post("userlogin.php", param, 
+				function(param, response){
+					alert("Data: " + param + "\nResponse: " + response);
+					if (param!= "" && response == "success"){
+						window.location.href = 'index.php';
+					}
+				});
+		}
+		</script>
 	</head>
 	<body>
-	<?php
-		$email = $_POST["email"];
-		$password = $_POST["password"];
-		$sql='select * from `students` where email="'.$email.'" and password=MD5("'.$password.'")';
-		var_dump($sql);
-		$result = mysqli_query($link, $sql);	
-//		var_dump($result);
-		if (!$result) {
-			$error = 'Error fetching data: ' . mysqli_error($link);
-			echo $error;
-			exit();
-		}
-		$loggedInUser = mysqli_fetch_array($result);
-		if ($loggedInUser!=null){
-			var_dump($loggedInUser);
-			$cookie_name="user";
-			$cookie_value = $loggedInUser["first_name"] + " " + $loggedInUser["last_name"];
-			var_dump($loggedInUser);
-			setcookie($cookie_name, $cookie_value, time() + (86400 * 30), "/"); // 86400 = 1 day
-			var_dump($cookie_name);
-			var_dump($cookie_value);
-			header("Location: index.php");
-		} else {
-			header("Location: account.php");
-		}
-	?>   
+		<?php include("includes/nav.php"); ?>
+		<section id="main-content">
+			<div class="container">
+                <h3>Register at Noble Smart Academy</h3>
+				<form id="frmLogin">
+				<fieldset>
+					<legend>Enter your information</legend>
+					E-mail: <input type="email" id="email" name="email"><br>
+					Password: <input type="password" id="password" name="password"><br>
+					<input type="button" id="btnLogin" onClick="login()" value="Submit" class="btn btn-primary">
+					<input type="reset" value="Reset" class="btn btn-warning">
+				</fieldset> 
+				</form>				
+			</div>
+			<div id="frmResult"></div>
+			<p>
+				Don't have an account: <a href="register.php">Register</a>&nbsp;|&nbsp;
+				<a href="forgotusername.php">Forgot Username</a>&nbsp;|&nbsp;
+				<a href="forgotpassword.php">Forgot Password</a>
+			</p>
+		</section>
+		<?php include("includes/footer.php"); ?>
 	</body>
 </html>

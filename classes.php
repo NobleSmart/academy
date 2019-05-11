@@ -7,12 +7,29 @@ include("includes/functions.php");
 <html>
 	<head>
 		<title>Noble Smart Academy</title>
-		<link rel="stylesheet" href="css/reset.css">
-		<link rel="stylesheet" href="css/global.css">
-		<meta name="viewport" content="width=device-width; initial-scale=1; user-scalable=true;">
+		<?php include("includes/head.php"); ?>
+		<script>
+		function signup(cId, uId){
+			console.log('Signing-up course Id=' + cId + ' for userId=' + uId);
+			alert('UserId=' + uId + ' have been signed-up for courseId=' + cId);
+			var param = {
+				courseId: cId,
+				userId: uId
+			};
+			console.log('[param]', param);
+			$.post("signup.php", param, 
+				function(param, response){
+					alert("Data: " + param + "\nResponse: " + response);
+					if (param!= "" && response == "success"){
+						window.location.href = 'index.php';
+					}
+				});
+
+		}
+		</script>
 	</head>
 	<body>
-		<?php include("nav.php"); ?>
+		<?php include("includes/nav.php"); ?>
 		<section id="main-content">
 			<div class="container">
                 <h3>Classes at Noble Smart Academy</h3>
@@ -22,19 +39,6 @@ include("includes/functions.php");
                 ?>
 			</div>
 		</section>
-		<section id="social">
-			<div class="container">
-				<h3>I'm pretty social too. We should be friends.</h3>
-				<ul>
-					<li><img src="images/facebook.svg" alt="Facebook" /></li>
-					<li><img src="images/twitter.svg" alt="Twitter" /></li>
-					<li><img src="images/instagram.svg" alt="Instagram" /></li>
-					<li><img src="images/linkedin.svg" alt="LinkedIn" /></li>
-				</ul>
-			</div>
-		</section>
-		<footer>
-			<p>&copy; 2015 IMA Zebra</p>
-		</footer>
+		<?php include("includes/footer.php"); ?>
 	</body>
 </html>

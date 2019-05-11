@@ -1,0 +1,10 @@
+[
+    {
+        "brand" : "Toyota",
+        "models" : ["Corolla","Camry","Sienna"]
+    },
+    {
+        "brand" : "Nissan",
+        "models" : ["Altima","Maxima","Pathfinder","Juke"]
+    }
+]

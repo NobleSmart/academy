@@ -1,14 +1,19 @@
-<?php include("includes/functions.php"); ?>
-<!DOCTYPE html>
+<?php 
+include("includes/cookies.php");
+include("includes/dbconfig.php"); 
+include("includes/functions.php"); 
+?>
+<!doctype html>
 <html>
-  <head>
-    <title>PHP Test Page</title>
-  </head>
-  <body>
-    <?php
-        include("nav.php");
-    ?>
-    <h1>My About Page</h1>
+	<head>
+		<title>Noble Smart Academy</title>
+		<?php include("includes/head.php"); ?>
+	</head>
+	<body>
+		<?php include("includes/nav.php"); ?>
+		<section id="main-content">
+			<div class="container">
+			<h1>My About Page</h1>
     <p>Sample paragraph</p>
     <?php
         $myCat = "Willie";
@@ -28,7 +33,8 @@
 
         $degF = convertCtoF(100);
         echo "100 deg C = $degF deg F";
-    ?>
-    </p>
-  </body>
+    ?>			</div>
+		</section>
+		<?php include("includes/footer.php"); ?>
+	</body>
 </html>

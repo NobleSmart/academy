@@ -13,15 +13,23 @@ include("includes/functions.php");
 		<?php include("includes/nav.php"); ?>
 		<section id="main-content">
 			<div class="container">
-                <h3>Courses at Noble Smart Academy</h3>
+                <h3>Edit a Courses</h3>
                 <?php
                     // var_dump($link);
-                    $qs = $_SERVER["QUERY_STRING"];
-                    // var_dump($qs);
+					$qs = $_SERVER["QUERY_STRING"];
+					$page = $_SERVER["PHP_SELF"];
+					$method = $_SERVER["REQUEST_METHOD"];
+					// var_dump($qs);
+					var_dump($method);
                     $val = $qs!=null ? explode("=",$qs)[1] : "";
-                    // var_dump($val);
-                    if ($val=="") getCourses();                    
-                    else getCourseDetail($val);
+					// var_dump($val);
+					if ($method=="GET"){
+						if ($val=="") getCourses();                    
+						else getCourseForm($val, $page);	
+					} else {
+						echo "Saving course";
+						saveCourse();
+					}
                     echo 'Return to <a href="index.php">home</a>.'                                 
                 ?>
 			</div>
