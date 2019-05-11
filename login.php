@@ -27,7 +27,8 @@ include("includes/functions.php");
 					if (param!= "" && response == "success"){
 						window.location.href = 'index.php';
 					}
-				});
+				}
+			);
 		}
 		</script>
 	</head>

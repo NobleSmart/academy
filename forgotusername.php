@@ -7,27 +7,24 @@ include("includes/functions.php");
 <html>
 	<head>
 		<title>Noble Smart Academy</title>
-		<link rel="stylesheet" href="css/reset.css">
-		<link rel="stylesheet" href="css/global.css">
-		<meta name="viewport" content="width=device-width; initial-scale=1; user-scalable=true;">
+		<?php include("includes/head.php"); ?>
 		<script>
-		function register(){
-			console.log("Registering");
+		function forgetUser(){
+			console.log("Forget User");
 			var response = "";
-			var fname = document.getElementById("fname").value;
-			var lname = document.getElementById("lname").value;
-			var email = document.getElementById("email").value;
-			var password = document.getElementById("password").value;
-			console.log('[fname]', fname);
-			var xmlhttp = new XMLHttpRequest();
-				xmlhttp.onreadystatechange = function() {
-				if (this.readyState == 4 && this.status == 200) {
-					document.getElementById("frmResult") = this.responseText;
-				}
+			var emailVal = $("#email").val();
+			console.log('[email]', email);
+			var param = {
+				email: emailVal
 			};
-			var str="fname="+fname+"&lname="+lname+"&email="+email+"&password="+password;
-			xmlhttp.open("POST", "register_user.php?" + str, true);
-			xmlhttp.send();
+			$.post("sendforgetuser.php", param, 
+				function(param, response){
+					alert("Data: " + param + "\nResponse: " + response);
+					if (param!= "" && response == "success"){
+						// window.location.href = 'index.php';
+					}
+				}
+			);			
 		}
 		</script>
 	</head>
@@ -35,15 +32,12 @@ include("includes/functions.php");
 		<?php include("includes/nav.php"); ?>
 		<section id="main-content">
 			<div class="container">
-                <h3>Register at Noble Smart Academy</h3>
-				<form id="frmRegistration">
+                <h3>Forgot Username at Noble Smart Academy</h3>
+				<form id="frmForgetUsername">
 				<fieldset>
-					<legend>Enter your information</legend>
-					First Name: <input type="text" id="fname" name="fname"><br>
-					Last Name: <input type="text" id="lname" name="lname"><br>
+					<legend>Enter the email associated with you</legend>
 					E-mail: <input type="email" id="email" name="email"><br>
-					Password: <input type="password" id="password" name="password"><br>
-					<input type="button" id="btnRegister" onClick="register()" value="Submit" class="btn btn-primary">
+					<input type="button" id="btnForgetUser" onClick="forgetUser()" value="Submit" class="btn btn-primary">
 					<input type="reset" value="Reset" class="btn btn-warning">
 				</fieldset> 
 				</form>				

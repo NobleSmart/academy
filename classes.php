@@ -21,7 +21,7 @@ include("includes/functions.php");
 				function(param, response){
 					alert("Data: " + param + "\nResponse: " + response);
 					if (param!= "" && response == "success"){
-						window.location.href = 'index.php';
+						// window.location.href = 'index.php';
 					}
 				});
 
@@ -33,7 +33,8 @@ include("includes/functions.php");
 		<section id="main-content">
 			<div class="container">
                 <h3>Classes at Noble Smart Academy</h3>
-                <?php
+				<?php
+					echo 
 					getClasses();				
                     echo 'Return to <a href="index.php">home</a>.'                                 
                 ?>
