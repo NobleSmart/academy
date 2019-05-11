@@ -219,8 +219,8 @@ function getClasses(){
 
 function signupForClass($courseId, $userId){
     global $link;
-    $sql='insert into `registration` (student_id, course_id, reg_date, status)
-        values ($userId, $courseId, DATE(), 0)';
+    $sql = "INSERT INTO `registration` (`id`, `student_id`, `course_id`, `reg_date`, `paid`) 
+        VALUES (NULL, $userId, $courseId, CURRENT_DATE(), '1')";
     $result = mysqli_query($link, $sql);
     if (!$result) {
       $error = 'Error fetching data: ' . mysqli_error($link);
@@ -228,9 +228,9 @@ function signupForClass($courseId, $userId){
       exit();
     }       
     return $sql;
-    while($signup=mysqli_fetch_array($result)){
+    // while($signup=mysqli_fetch_array($result)){
         
-    }
+    // }
 
 }
 
